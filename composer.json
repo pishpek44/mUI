@@ -1,0 +1,16 @@
+{
+    "name": "mui/table",
+    "description": "UI Table",
+    "authors": [
+        {
+            "name": "Evgenii Vakhitov",
+            "email": "e.vakhitov@dostek.kg"
+        }
+    ],
+    "require": {
+      "php": ">=7.0"
+    },
+    "autoload": {
+        "classmap": [ "src" ]
+    }
+}
