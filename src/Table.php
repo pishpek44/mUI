@@ -45,9 +45,23 @@ class Table {
         return [];
     }
 
-    public function &load(array $Records) {
+    public function &load(array $Records, $filterFunction = null) {
+
+        if(
+        is_null($filterFunction)
+        ) {
+            $filterFunction = function ($record) { return true; };
+        }
 
         foreach ($Records as $index => $Record) {
+
+
+            if(is_object($Record)){
+                $Record = (array)$Record;
+            }
+
+            if(!$filterFunction($Record)) continue;
+
             $Data = [];
 
             $indexes = [
@@ -145,7 +159,6 @@ class Table {
         </thead>
         <tbody>
         <?php foreach($this->Data as $Data) : ?>
-
             <tr<?php if(!is_null($this->onRecordClick)) : ?> style = "cursor: pointer;<?php echo $this->prepareCssFunction($Data); ?>" onclick = "<?php echo $this->prepareOnRecordClickFunction($Data); ?>"<?php else: ?> style = "<?php echo $this->prepareCssFunction($Data); ?>"<?php endif; ?>>
                 <?php foreach($this->Columns as $Column) : ?>
                     <td><?php echo $Data[$Column['Name']]; ?></td>
